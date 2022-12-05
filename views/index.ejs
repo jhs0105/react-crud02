@@ -1,0 +1,10 @@
+<%- include("./include/header") %>
+<h2>main</h2>
+<div class="login-box">
+  <% if(user!==""){ %>
+  <a href="/user/info?id=<%= id %>"><%= user %></a>
+  <% }else{ %>
+  <a href="/user/login">로그인 하러 가기</a>
+  <% } %>
+</div>
+<%- include("./include/footer") %>

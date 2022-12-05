@@ -1,0 +1,209 @@
+.search-box form {
+  display: flex;
+  justify-content: center;
+}
+.search-box form select {
+  width: 120px;
+  padding: 0 15px;
+  appearance: none;
+  border: 1px solid #ccc;
+  position: relative;
+  background: url("../images/board/down-filled-triangular-arrow.png") no-repeat right 15px top 50%;
+  background-size: 10px;
+}
+.search-box form input {
+  height: 50px;
+  width: 300px;
+  margin: 0 10px;
+  border: 1px solid #ccc;
+  padding: 0 15px;
+}
+.search-box form button {
+  padding: 0 30px;
+  text-align: center;
+  background-color: #111;
+  color: #fff;
+  font-size: 16px;
+}
+
+.bbs {
+  width: 100%;
+  margin-top: 50px;
+}
+.bbs.list {
+  display: table;
+  border-top: 2px solid #111;
+}
+.bbs.list .bbs-header span,
+.bbs.list .bbs-body span {
+  display: table-cell;
+  text-align: center;
+  height: 60px;
+  vertical-align: middle;
+  border-bottom: 1px solid #ccc;
+}
+.bbs.list .bbs-header span.no,
+.bbs.list .bbs-body span.no {
+  width: 80px;
+}
+.bbs.list .bbs-header span.writer,
+.bbs.list .bbs-body span.writer {
+  width: 150px;
+}
+.bbs.list .bbs-header span.date,
+.bbs.list .bbs-body span.date {
+  width: 150px;
+}
+.bbs.list .bbs-header {
+  display: table-header-group;
+}
+.bbs.list .bbs-header span {
+  border-bottom-color: #111;
+}
+.bbs.list .bbs-body {
+  display: table-row-group;
+}
+.bbs.list .bbs-body li {
+  display: table-row;
+}
+.bbs.list .bbs-body li .subject {
+  text-align: left;
+  padding-left: 20px;
+}
+.bbs.write .row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
+.bbs.write .row:nth-child(1) {
+  border-top: 1px solid #ccc;
+}
+.bbs.write .row > span {
+  width: 200px;
+}
+.bbs.write .row input,
+.bbs.write .row textarea {
+  flex-grow: 1;
+  height: 50px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.bbs.write .row textarea {
+  height: 300px;
+  resize: none;
+}
+.bbs.write .btns {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+.bbs.write .btns .btn {
+  width: 120px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  margin: 0 10px;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 18px;
+  border-radius: 10px;
+}
+.bbs.write .btns .btn-write {
+  background-color: rgb(52, 130, 247);
+}
+.bbs.write .btns .btn-reset {
+  background-color: rgb(104, 104, 104);
+}
+
+.bbs-pagination {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+.bbs-pagination a {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 2px;
+  border: 1px solid #ccc;
+}
+.bbs-pagination ul {
+  display: flex;
+}
+.bbs-pagination ul .on a {
+  background-color: #0467b3;
+  color: #fff;
+  border-color: #0467b3;
+}
+
+@media all and (max-width: 980px) {
+  .search-box form {
+    flex-wrap: wrap;
+  }
+  .search-box form select {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 10px;
+  }
+  .search-box form input {
+    flex-grow: 1;
+    margin: 0;
+    margin-right: 10px;
+    width: auto;
+  }
+  .search-box form button {
+    flex-shrink: 0;
+  }
+  .bbs.list .bbs-header {
+    display: none;
+  }
+  .bbs.list .bbs-body {
+    display: flex;
+    flex-direction: column;
+  }
+  .bbs.list .bbs-body li {
+    display: flex;
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+    flex-wrap: wrap;
+  }
+  .bbs.list .bbs-body li span {
+    display: flex;
+    height: auto;
+    border-bottom: none;
+    text-align: left;
+  }
+  .bbs.list .bbs-body li span.no {
+    display: none;
+  }
+  .bbs.list .bbs-body li span.subject {
+    padding-left: 0;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  .bbs.list .bbs-body li span.writer, .bbs.list .bbs-body li span.date {
+    width: auto;
+    margin-right: 20px;
+    font-size: 14px;
+  }
+  .bbs.list .bbs-body li span.writer:before, .bbs.list .bbs-body li span.date:before {
+    content: attr(data-label);
+    display: block;
+    margin-right: 10px;
+    font-weight: 500;
+  }
+  .bbs-pagination a {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+}

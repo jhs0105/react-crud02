@@ -1,0 +1,48 @@
+<%- include("../include/header") %>
+<h2>회원가입</h2>
+<form action="/user/join" method="POST">
+  <div>
+    <label><span>아이디</span> <input type="text" placeholder="아이디를 입력하세요" name="id" /></label>
+  </div>
+  <div>
+    <label><span>패스워드</span> <input type="password" placeholder="패스워드를 입력하세요" name="password" /></label>
+  </div>
+  <div>
+    <label><span>이름</span> <input type="text" placeholder="이름을 입력하세요" name="name" /></label>
+  </div>
+  <div>
+    <label><span>연락처</span> <input type="text" placeholder="연락처를 입력하세요" name="phone" /></label>
+  </div>
+  <div>
+    <label><span>주소</span> <input type="text" placeholder="주소를 입력하세요" name="address" /></label>
+  </div>
+  <!-- <div>
+          <label><span>남자</span> <input type="radio" name="gender" value="male" /></label>
+          <label><span>여자</span> <input type="radio" name="gender" value="female" /></label>
+        </div>
+        <div>
+          <label
+            ><span>선택</span>
+            <select name="sido" id="">
+              <option value="서울">서울</option>
+              <option value="경기도">경기도</option>
+              <option value="부산">부산</option>
+              <option value="대전">대전</option>
+            </select>
+          </label>
+        </div>
+        <div>
+          <label>
+            <span>관심분야를 선택해 주세요</span>
+            <span>독서</span><input type="checkbox" name="interest" id="" value="독서" /> <span>영화</span><input type="checkbox" name="interest" id="" value="영화" /> <span>축구</span
+            ><input type="checkbox" name="interest" id="" value="축구" />
+          </label>
+        </div> -->
+
+  <div class="btns">
+    <button type="submit" class="btn btn-confirm">확인</button>
+    <button type="reset" class="btn btn-reset">취소</button>
+  </div>
+</form>
+
+<%- include("../include/footer") %>

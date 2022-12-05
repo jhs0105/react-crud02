@@ -1,0 +1,16 @@
+<%- include("../include/header") %>
+<h2>로그인</h2>
+<form action="/user/login" method="POST">
+  <div>
+    <label><span>아이디</span> <input type="text" placeholder="아이디를 입력하세요" name="id" /></label>
+  </div>
+  <div>
+    <label><span>패스워드</span> <input type="password" placeholder="패스워드를 입력하세요" name="password" /></label>
+  </div>
+
+  <div class="btns">
+    <button type="submit" class="btn btn-confirm">로그인</button>
+    <button type="reset" class="btn btn-reset">취소</button>
+  </div>
+</form>
+<%- include("../include/footer") %>

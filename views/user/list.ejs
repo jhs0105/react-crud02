@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header id="header">
+      <h1>Member</h1>
+    </header>
+    <main id="main">
+      <h2>회원가입</h2>
+      <form action="/user/join" method="POST">
+        <div>
+          <label><span>아이디</span> <input type="text" placeholder="아이디를 입력하세요" name="id" /></label>
+        </div>
+        <div>
+          <label><span>패스워드</span> <input type="password" placeholder="패스워드를 입력하세요" name="password" /></label>
+        </div>
+        <div>
+          <label><span>연락처</span> <input type="text" placeholder="연락처를 입력하세요" name="phone" /></label>
+        </div>
+        <div>
+          <label><span>주소</span> <input type="text" placeholder="주소를 입력하세요" name="address" /></label>
+        </div>
+        <div class="btns">
+          <button type="submit" class="btn btn-confirm">확인</button>
+          <button type="reset" class="btn btn-reset">취소</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

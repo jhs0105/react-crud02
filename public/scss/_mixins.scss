@@ -1,0 +1,36 @@
+@mixin ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+//f(x,y) vendor prefix
+
+@mixin multiElilipsis($line: 2, $lineHeight: 1.5) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+  height: $lineHeight * $line * 1em; //3em
+  line-height: $lineHeight;
+}
+
+@mixin flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin longShadow($total: 50, $color: rgba(0, 0, 0, 1)) {
+  $shadow: "";
+  @for $i from 1 through $total - 1 {
+    $shadow: $shadow + $i + "px " + $i + "px 0px " + $color + ",";
+  }
+  $shadow: $shadow + $total + "px " + 100 + "px 0px " + $color;
+  $shadow: unquote($shadow);
+  text-shadow: $shadow;
+}
+
+@mixin icon($code) {
+  content: $code;
+  font-family: "FontAwesome";
+}

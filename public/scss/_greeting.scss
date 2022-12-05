@@ -1,0 +1,100 @@
+@import "vars";
+@import "mixins";
+.greeting {
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    .img-box {
+      position: relative;
+      border: 1px solid #ccc;
+      flex-shrink: 0;
+      img {
+        width: 450px;
+      }
+      &:after {
+        content: "";
+        display: block;
+        background: darken($main-color, 10) url("../images/sub-contents/ysscience.png") left 20px bottom 0 no-repeat;
+        position: absolute;
+        z-index: -1;
+        left: -50px;
+        right: 50px;
+        top: 200px;
+        bottom: -50px;
+      }
+    }
+    .greeting-box {
+      flex-grow: 1;
+      margin-left: 120px;
+      h4 {
+        font-size: $h2;
+        font-weight: 300;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #ccc;
+        position: relative;
+        &:before {
+          content: "";
+          display: block;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          height: 1px;
+          width: 100px;
+          background-color: $main-color;
+          // background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(2, 0, 36, 1) 20%, rgba(7, 207, 127, 1) 20%, rgba(7, 207, 127, 1) 40%, rgba(204, 204, 204, 1) 40%, rgba(204, 204, 204, 1) 100%);
+        }
+        strong {
+          font-weight: 700;
+          color: $main-color;
+        }
+      }
+      .txt {
+        p {
+          line-height: 1.5;
+          margin-bottom: 30px;
+          word-break: keep-all;
+        }
+      }
+      .sign {
+        text-align: right;
+        font-size: 24px;
+        margin-top: 50px;
+        strong {
+          font-size: 16px;
+          display: block;
+          color: $main-color;
+          font-weight: 500;
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media all and (max-width: 980px) {
+  .greeting {
+    .container {
+      flex-direction: column;
+      .img-box {
+        width: 100%;
+        &:after {
+          display: none;
+        }
+        img {
+          width: 100%;
+        }
+      }
+      .greeting-box {
+        margin-left: 0;
+        width: 100%;
+        margin-top: 50px;
+        h4 {
+          line-height: 1.5;
+          font-size: clamp(24px, 3.6vw, 36px);
+        }
+      }
+    }
+  }
+}
