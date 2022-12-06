@@ -1,11 +1,71 @@
 const express = require("express");
 const router = express.Router();
 const UserSchema = require("../models/UserSchema");
+const session = require("express-session"); //서버에 저장
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+
+router.use(session({ secret: "비밀코드shim", resave: true, saveUninitialized: false }));
+router.use(passport.initialize());
+router.use(passport.session());
+
+//로그인 전략 짜기
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: "id", //field의 name값을 적는 것
+      passwordField: "password",
+      session: true,
+      passReqToCallback: false,
+    },
+    async (id, password, done) => {
+      try {
+        const userInfo = await UserSchema.findOne({ id: id, password: password }).exec();
+        console.log("로그인 성공");
+        if (userInfo) {
+          return done(null, userInfo);
+          //done(첫번째 매개변수, 두번째 매개변수)
+          //첫번째 매개변수: 서버에러
+          //두번째는 성공했을 때 보내주는 변수
+          //세번째는 임의로 실패를 만들고 싶을때
+        } else {
+          return done(null, false, { message: "id 또는 password를 확인해 주세요" });
+          //done(첫번째 매개변수, 두번째 매개변수)
+          //첫번째 매개변수: 서버에러
+          //두번째는 성공했을 때 보내주는 변수
+          //세번째는 서버개발자가 임의로 실패를 전달할때...
+        }
+      } catch {
+        return done(null, false, { message: "id 또는 password를 확인해 주세요" });
+      }
+    }
+  )
+);
+
+//userInfo값이 serializeUser (user)로 간다
+passport.serializeUser((user, done) => {
+  console.log("여기는 로그인 할때 한번만 거쳐간다");
+  done(null, user.id);
+});
+passport.deserializeUser((id, done) => {
+  console.log("여기는 매번 거쳐간다.");
+  UserSchema.findOne({ id: id })
+    .then((result) => {
+      done(null, result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 router.get("/join", (req, res) => {
-  //template engine
-  //서버에서 데이터를 실어 보내다.
-  res.render("./user/join");
+  //req.user는 세션에 저장되어 있다.
+  //console.log("join===", req.user);
+  if (req.user) {
+    res.send(`<script>alert("로그인 되어 있습니다."); location.href="/";</script>`);
+  } else {
+    res.render("./user/join", { userInfo: req.user });
+  }
 });
 
 //db선택 oracle, mySql(<- sql을 배워야 한다.) mongo
@@ -62,17 +122,30 @@ router.post("/join", async (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-  res.render("./user/login");
+  if (req.user) {
+    res.send(`<script>alert("로그인 되어 있습니다."); location.href="/";</script>`);
+  } else {
+    res.render("./user/login", { userInfo: req.user });
+  }
 });
-router.get("/info", async (req, res) => {
-  const id = req.query.id;
-  try {
-    const userInfo = await UserSchema.findOne({ id: id });
-    res.render("./user/info", { userInfo: userInfo });
-  } catch {}
+
+//middle ware
+router.get("/info", isNotLogged, (req, res) => {
+  // const id = req.query.id;
+  // try {
+  //   const userInfo = await UserSchema.findOne({ id: id });
+  //   res.render("./user/info", { userInfo: userInfo });
+  // } catch {}
+  //console.log(req.user);
+  if (req.user) {
+    res.render("./user/info", { userInfo: req.user });
+  } else {
+    res.send(`<script>alert("로그인 먼저 하셔야 합니다"); location.href="/user/login";</script>`);
+  }
 });
 
 //async. await 로 바꾸기
+/*
 router.post("/login", async (req, res) => {
   const id = req.body.id;
   const password = req.body.password;
@@ -85,25 +158,40 @@ router.post("/login", async (req, res) => {
   } catch {
     res.send("end");
   }
-
-  /*
-  const isLogged = UserSchema.findOne({ id: id, password: password }).exec(); //promise가 리턴됨
-  isLogged
-    .then((result) => {
-      console.log("result===", result);
-      // if (result.length > 0) {
-      res.render("./index", { user: result[0].name });
-      // }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  res.send("end");
-  */
 });
+*/
+
+//passport로 로그인을 하면 자동으로 req.user 정보가 생긴다.
+router.post("/login", passport.authenticate("local", { failureRedirect: "/user/login", successRedirect: "/user/info" }), (req, res) => {});
 
 router.get("/list", (req, res) => {
   res.render("./user/list"); //view폴더를 기준으로 한다.
 });
+
+router.get("/logout", (req, res) => {
+  if (req.user) {
+    req.session.destroy();
+    res.redirect("/");
+  }
+});
+
+//미들웨어: 필요한 곳에 넣으면 된다.
+function isLogged(req, res, next) {
+  //passport에서 로그인 성공하면 자동으로 req.user를 생성한다.
+  if (!req.user) {
+    next();
+  } else {
+    res.send(`<script>alert("로그인 되어 있습니다"); location.href="/";</script>`);
+  }
+}
+
+function isNotLogged(req, res, next) {
+  //passport에서 로그인 성공하면 자동으로 req.user를 생성한다.
+  if (req.user) {
+    next();
+  } else {
+    res.send(`<script>alert("로그인 먼저 하셔야 합니다"); location.href="/user/login";</script>`);
+  }
+}
 
 module.exports = router;

@@ -117,3 +117,67 @@ button {
 #main .btns .btn-reset {
   background-color: grey;
 }
+
+.btn-all {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+.btn-all.on span:nth-child(1) {
+  top: 24px;
+  transform: rotate(-45deg);
+}
+.btn-all.on span:nth-child(2) {
+  top: 24px;
+  left: -100px;
+  opacity: 0;
+}
+.btn-all.on span:nth-child(3) {
+  top: 24px;
+  transform: rotate(45deg);
+}
+.btn-all span {
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 2px;
+  background-color: #111;
+  left: 10px;
+  transition: all 0.25s ease;
+}
+.btn-all span:nth-child(1) {
+  top: 14px;
+}
+.btn-all span:nth-child(2) {
+  top: 24px;
+}
+.btn-all span:nth-child(3) {
+  top: 34px;
+}
+
+#gnb {
+  position: fixed;
+  top: 50px;
+  background-color: #fff;
+  width: 100%;
+  height: calc(100vh - 50px);
+  border-top: 1px solid #ccc;
+  left: 100%;
+  transition: all 0.25s ease;
+}
+#gnb.on {
+  left: 0;
+}
+#gnb ul li a {
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  border-bottom: 1px solid #ccc;
+  height: 50px;
+  color: #111;
+}
